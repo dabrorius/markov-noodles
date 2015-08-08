@@ -1,4 +1,5 @@
 class Noodles
+  attr_reader :dictionary
   def initialize
     @dictionary = {}
   end
@@ -22,12 +23,12 @@ class Noodles
     @dictionary[preceding].push followedby
   end
 
-  def generate_sentance
+  def generate_sentence
     depth = 2
     current_words = Array.new(depth)
     sentence_array = []
     loop do
-      sentence_array.push current_words.first
+      sentence_array.push current_words.first unless current_words.first == nil
       last_word = sentence_array.last
       if is_end_word?(last_word)
         break
@@ -53,9 +54,3 @@ class Noodles
     puts @dictionary
   end
 end
-
-
-noodle = Noodles.new
-noodle.analyze_text("Hello! My name is Filip and I like pie. I also like to sing and dance. My home town has a bridge and three cows. I like to buy three dollar pony.")
-noodle.print
-puts noodle.generate_sentance
