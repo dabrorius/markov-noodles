@@ -33,9 +33,13 @@ class Noodles
         break
       end
       next_words = @dictionary[current_words]
+      # If can't find any more words
       if next_words == nil
         head, *tail = current_words
+        # Add everything from current words except for head, becaues
+        # it's already in
         sentence_array.concat(tail)
+        # If the alst word here wasn't end word, add a punctation mark
         unless is_end_word?(sentence_array.last)
           sentence_array.last.join('.')
         end
