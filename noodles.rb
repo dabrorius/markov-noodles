@@ -35,7 +35,9 @@ class Noodles
       end
       next_words = @dictionary[current_words]
       if next_words == nil
-        last_word.concat(".")
+        new_last = current_words.last
+        new_last.concat(".") unless is_end_word?(new_last)
+        sentence_array.push new_last
         break
       end
       next_word = next_words.sample
