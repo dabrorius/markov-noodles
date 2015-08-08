@@ -1,11 +1,11 @@
 class Noodles
   attr_reader :dictionary
-  def initialize
+  def initialize(depth=2)
+    @depth = depth
     @dictionary = {}
   end
 
   def analyze_text(text)
-    depth = 2
     current_words = Array.new(depth)
     text_array = text.split(" ")
     while(text_array.length>0)
@@ -24,7 +24,6 @@ class Noodles
   end
 
   def generate_sentence
-    depth = 2
     current_words = Array.new(depth)
     sentence_array = []
     loop do
@@ -35,9 +34,11 @@ class Noodles
       end
       next_words = @dictionary[current_words]
       if next_words == nil
-        new_last = current_words.last
-        new_last.concat(".") unless is_end_word?(new_last)
-        sentence_array.push new_last
+        head, *tail = current_words
+        sentence_array.concat(tail)
+        unless is_end_word?(sentence_array.last)
+          sentence_array.last.join('.')
+        end
         break
       end
       next_word = next_words.sample
@@ -46,6 +47,10 @@ class Noodles
       current_words.shift
     end
     sentence_array.join(" ")
+  end
+
+  def depth
+    @depth
   end
 
   def is_end_word?(word)
