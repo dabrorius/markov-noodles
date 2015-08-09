@@ -30,6 +30,17 @@ describe Noodles do
                                       ["is", "a"]=>["sentence."]})
   end
 
+  describe "#analzye_file" do
+    it "creates correct dictionary" do
+      noodles.analyze_file("test_input.txt")
+      expect(noodles.dictionary).to eq({[nil, nil]=>["White"],
+                                        [nil, "White"]=>["cats"],
+                                        ["White", "cats"]=>["are"],
+                                        ["cats", "are"]=>["the"],
+                                        ["are", "the"]=>["best."]})
+    end
+  end
+
   describe "#is_end_word?" do
     it "returns true when . is last character" do
       expect(noodles.send(:is_end_word?, "duck.")).to eq(true)

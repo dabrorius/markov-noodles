@@ -7,6 +7,7 @@ class Noodles
   end
 
   def analyze_file(filename)
+    analyze_string(File.read(filename))
   end
 
   def analyze_string(text)
