@@ -1,3 +1,5 @@
+require 'msgpack'
+
 class Noodles
   attr_reader :dictionary
 
@@ -22,9 +24,13 @@ class Noodles
   end
 
   def save_dictionary(filename)
+    File.open(filename, 'w') do |file|
+      file.write @dictionary.to_msgpack
+    end
   end
 
   def load_dictionary(filename)
+    @dictionary = MessagePack.unpack(File.read(filename))
   end
 
   def generate_sentence

@@ -41,6 +41,24 @@ describe Noodles do
     end
   end
 
+  describe "saving and loading" do
+    it "can save dictionary to file" do
+      noodles.analyze_string("Black sails at midnight")
+      noodles.save_dictionary("dictionary_file")
+      written_dictionary = MessagePack.unpack(File.read("dictionary_file"))
+      expect(written_dictionary).to eq noodles.dictionary
+      File.delete("dictionary_file") if File.exist?("dictionary_file")
+    end
+
+    it "can read dictionary from file" do
+      noodles.load_dictionary("test_dictionary")
+      expect(noodles.dictionary).to eq({[nil, nil]=>["Black"],
+                                        [nil, "Black"]=>["sails"],
+                                        ["Black", "sails"]=>["at"],
+                                        ["sails", "at"]=>["midnight"]})
+    end
+  end
+
   describe "#is_end_word?" do
     it "returns true when . is last character" do
       expect(noodles.send(:is_end_word?, "duck.")).to eq(true)
