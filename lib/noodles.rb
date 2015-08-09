@@ -15,15 +15,7 @@ class Noodles
 
   def analyze_string(text)
     current_words = Array.new(depth)
-    text_array = []
-    text.split.each do |word|
-      text_array.push word
-      if end_word?(word)
-        depth.times do
-          text_array.push nil
-        end
-      end
-    end
+    text_array = split_text_to_array(text)
     while text_array.length > 0
       next_word = text_array.shift
       add_words(current_words.dup, next_word)
@@ -72,6 +64,24 @@ class Noodles
   end
 
   private
+
+  # Splits a text into array and inserts @depth nils after each sentence.
+  #
+  # This way generated texts can start with any word that is at the beginning of
+  # any sentence in analyzed text, instead of always starting with the first
+  # word from the text.
+  def split_text_to_array(text)
+    text_array = []
+    text.split.each do |word|
+      text_array.push word
+      if end_word?(word)
+        depth.times do
+          text_array.push nil
+        end
+      end
+    end
+    text_array
+  end
 
   def add_words(preceding, followedby)
     @dictionary[preceding] ||= []

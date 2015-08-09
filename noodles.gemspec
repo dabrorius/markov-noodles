@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'noodles'
-  s.version     = '1.0.0'
+  s.version     = '1.0.1'
   s.date        = '2015-08-09'
   s.summary     = "Simple markov chain implementation"
   s.description = "Generate meaningless text with ruby"
