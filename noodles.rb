@@ -6,6 +6,9 @@ class Noodles
     @dictionary = {}
   end
 
+  def analyze_file(filename)
+  end
+
   def analyze_string(text)
     current_words = Array.new(depth)
     text_array = text.split
@@ -15,6 +18,12 @@ class Noodles
       current_words.push next_word
       current_words.shift
     end
+  end
+
+  def save_dictionary(filename)
+  end
+
+  def load_dictionary(filename)
   end
 
   def generate_sentence
