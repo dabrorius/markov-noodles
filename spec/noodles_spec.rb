@@ -20,7 +20,9 @@ describe Noodles do
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
                                      [nil, 'This'] => ['is'],
                                      ['This', 'is'] => ['a'],
-                                     ['is', 'a'] => ['sentence.'])
+                                     ['is', 'a'] => ['sentence.'],
+                                     ['a', 'sentence.'] => [nil],
+                                     ['sentence.', nil] => [nil])
   end
 
   it 'adds a full stop automatically' do
@@ -33,7 +35,26 @@ describe Noodles do
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
                                      [nil, 'This'] => ['is'],
                                      ['This', 'is'] => ['a'],
-                                     ['is', 'a'] => ['sentence.'])
+                                     ['is', 'a'] => ['sentence.'],
+                                     ['a', 'sentence.'] => [nil],
+                                     ['sentence.', nil] => [nil])
+  end
+
+  it 'generates proper dictionary with multiple sentences' do
+    noodles.analyze_string('This is a sentence. Foo is a bar.')
+    expect(noodles.dictionary).to eq([nil, nil] => ['This', 'Foo'],
+                                     [nil, 'This'] => ['is'],
+                                     ['This', 'is'] => ['a'],
+                                     ['is', 'a'] => ['sentence.', 'bar.'],
+                                     ['a', 'sentence.'] => [nil],
+                                     ['sentence.', nil] => [nil],
+                                     [nil, 'Foo'] => ['is'],
+                                     ['Foo', 'is'] => ['a'],
+                                     ['a', 'bar.'] => [nil],
+                                     ['bar.', nil] => [nil])
+                                    
+                                    
+                                    
   end
 
   describe '#analzye_file' do
@@ -44,7 +65,9 @@ describe Noodles do
                                        [nil, 'White'] => ['cats'],
                                        ['White', 'cats'] => ['are'],
                                        ['cats', 'are'] => ['the'],
-                                       ['are', 'the'] => ['best.'])
+                                       ['are', 'the'] => ['best.'],
+                                       ['the', 'best.'] => [nil],
+                                       ['best.', nil] => [nil])
     end
   end
 
@@ -94,15 +117,6 @@ describe Noodles do
     end
   end
 
-  it 'generates proper dictionary when word appears multiple times' do
-    noodles.analyze_string('I like pie. I like beer.')
-    expect(noodles.dictionary).to eq([nil, nil] => ['I'],
-                                     [nil, 'I'] => ['like'],
-                                     ['I', 'like'] => ['pie.', 'beer.'],
-                                     ['like', 'pie.'] => ['I'],
-                                     ['pie.', 'I'] => ['like'])
-  end
-
   describe 'markov chains of length 1' do
     let(:noodles) { Noodles.new(1) }
     it 'generates proper dictionary' do
@@ -110,7 +124,8 @@ describe Noodles do
       expect(noodles.dictionary).to eq([nil] => ['This'],
                                        ['This'] => ['is'],
                                        ['is'] => ['a'],
-                                       ['a'] => ['sentence.'])
+                                       ['a'] => ['sentence.'],
+                                       ['sentence.'] => [nil])
     end
 
     it 'can generate a sentence' do
@@ -126,7 +141,10 @@ describe Noodles do
       expect(noodles.dictionary).to eq([nil, nil, nil] => ['This'],
                                        [nil, nil, 'This'] => ['is'],
                                        [nil, 'This', 'is'] => ['a'],
-                                       ['This', 'is', 'a'] => ['sentence.'])
+                                       ['This', 'is', 'a'] => ['sentence.'],
+                                       ['a', 'sentence.', nil] => [nil],
+                                       ['is', 'a', 'sentence.'] => [nil],
+                                       ['sentence.', nil, nil] => [nil])
     end
 
     it 'can generate a sentence' do

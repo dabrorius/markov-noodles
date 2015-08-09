@@ -15,7 +15,15 @@ class Noodles
 
   def analyze_string(text)
     current_words = Array.new(depth)
-    text_array = text.split
+    text_array = []
+    text.split.each do |word|
+      text_array.push word
+      if end_word?(word)
+        depth.times do
+          text_array.push nil
+        end
+      end
+    end
     while text_array.length > 0
       next_word = text_array.shift
       add_words(current_words.dup, next_word)
@@ -66,8 +74,6 @@ class Noodles
   private
 
   def add_words(preceding, followedby)
-    fail 'Preceding must be an array' unless preceding.is_a?(Array)
-    fail 'Followedby must be a string' unless followedby.is_a?(String)
     @dictionary[preceding] ||= []
     @dictionary[preceding].push followedby
   end
