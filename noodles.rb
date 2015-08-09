@@ -53,7 +53,7 @@ class Noodles
   end
 
   def is_end_word?(word)
-    word != nil && word.split("").last == "."
+    word != nil && (word =~ /^*+[?\.!]$/) != nil
   end
 
   def print

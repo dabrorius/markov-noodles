@@ -20,6 +20,32 @@ describe Noodles do
                                       ["is", "a"]=>["sentence."]})
   end
 
+  describe "#is_end_word?" do
+    it "returns true when . is last character" do
+      expect(noodles.is_end_word?("duck.")).to eq(true)
+    end
+
+    it "returns true when ! is last character" do
+      expect(noodles.is_end_word?("duck!")).to eq(true)
+    end
+
+    it "returns true when ? is last character" do
+      expect(noodles.is_end_word?("duck?")).to eq(true)
+    end
+
+    it "returns false when punctuation mark is missing" do
+      expect(noodles.is_end_word?("duck")).to eq(false)
+    end
+
+    it "returns false when punctuation mark is in middle of a word" do
+      expect(noodles.is_end_word?("du.ck")).to eq(false)
+    end
+
+    it "returns false when nil is passed" do
+      expect(noodles.is_end_word?(nil)).to eq(false)
+    end
+  end
+
   it "generates proper dictionary when word appears multiple times" do
     noodles.analyze_text("I like pie. I like beer.")
     expect(noodles.dictionary).to eq({[nil, nil]=>["I"],
