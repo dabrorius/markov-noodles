@@ -7,6 +7,11 @@ describe Noodles do
     expect(noodles.generate_sentence).to eq("This is a sentence.")
   end
 
+  it "adds a full stop automatically" do
+    noodles.analyze_text("This is a sentence")
+    expect(noodles.generate_sentence).to eq("This is a sentence.")
+  end
+
   it "generates proper dictionary" do
     noodles.analyze_text("This is a sentence.")
     expect(noodles.dictionary).to eq({[nil, nil]=>["This"],

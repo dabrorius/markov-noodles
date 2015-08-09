@@ -18,7 +18,7 @@ class Noodles
 
   def add_words(preceding, followedby)
     raise "Preceding must be an array" unless preceding.is_a?(Array)
-    raise "Followedby must be string" unless followedby.is_a?(String)
+    raise "Followedby must be a string" unless followedby.is_a?(String)
     @dictionary[preceding] ||= []
     @dictionary[preceding].push followedby
   end
@@ -27,26 +27,21 @@ class Noodles
     current_words = Array.new(depth)
     sentence_array = []
     loop do
-      sentence_array.push current_words.first unless current_words.first == nil
-      last_word = sentence_array.last
-      if is_end_word?(last_word)
+      new_word = current_words.last
+      if new_word
+        sentence_array.push new_word 
+      end
+      if is_end_word?(new_word)
         break
       end
-      next_words = @dictionary[current_words]
-      # If can't find any more words
-      if next_words == nil
-        head, *tail = current_words
-        # Add everything from current words except for head, becaues
-        # it's already in
-        sentence_array.concat(tail)
-        # If the alst word here wasn't end word, add a punctation mark
-        unless is_end_word?(sentence_array.last)
-          sentence_array.last.join('.')
+      next_word_options = @dictionary[current_words]
+      if next_word_options == nil
+        unless is_end_word?(new_word)
+          new_word.concat('.')
         end
         break
       end
-      next_word = next_words.sample
-      puts "G #{current_words} -> #{next_word}"
+      next_word = next_word_options.sample
       current_words.push next_word
       current_words.shift
     end
