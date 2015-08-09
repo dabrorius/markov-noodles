@@ -2,18 +2,28 @@ require_relative 'noodles'
 
 describe Noodles do
   let(:noodles) { Noodles.new }
+
   it "can generate a sentence" do
-    noodles.analyze_text("This is a sentence.")
+    noodles.analyze_string("This is a sentence.")
     expect(noodles.generate_sentence).to eq("This is a sentence.")
   end
 
+  it "can analyze sentence with a lot of whitespace" do
+    noodles.analyze_string(" This  is a  \n\n  sentence.  \n")
+    expect(noodles.generate_sentence).to eq("This is a sentence.")
+    expect(noodles.dictionary).to eq({[nil, nil]=>["This"],
+                                      [nil, "This"]=>["is"],
+                                      ["This", "is"]=>["a"],
+                                      ["is", "a"]=>["sentence."]})
+  end
+
   it "adds a full stop automatically" do
-    noodles.analyze_text("This is a sentence")
+    noodles.analyze_string("This is a sentence")
     expect(noodles.generate_sentence).to eq("This is a sentence.")
   end
 
   it "generates proper dictionary" do
-    noodles.analyze_text("This is a sentence.")
+    noodles.analyze_string("This is a sentence.")
     expect(noodles.dictionary).to eq({[nil, nil]=>["This"],
                                       [nil, "This"]=>["is"],
                                       ["This", "is"]=>["a"],
@@ -22,32 +32,32 @@ describe Noodles do
 
   describe "#is_end_word?" do
     it "returns true when . is last character" do
-      expect(noodles.is_end_word?("duck.")).to eq(true)
+      expect(noodles.send(:is_end_word?, "duck.")).to eq(true)
     end
 
     it "returns true when ! is last character" do
-      expect(noodles.is_end_word?("duck!")).to eq(true)
+      expect(noodles.send(:is_end_word?, "duck!")).to eq(true)
     end
 
     it "returns true when ? is last character" do
-      expect(noodles.is_end_word?("duck?")).to eq(true)
+      expect(noodles.send(:is_end_word?, "duck?")).to eq(true)
     end
 
     it "returns false when punctuation mark is missing" do
-      expect(noodles.is_end_word?("duck")).to eq(false)
+      expect(noodles.send(:is_end_word?, "duck")).to eq(false)
     end
 
     it "returns false when punctuation mark is in middle of a word" do
-      expect(noodles.is_end_word?("du.ck")).to eq(false)
+      expect(noodles.send(:is_end_word?, "du.ck")).to eq(false)
     end
 
     it "returns false when nil is passed" do
-      expect(noodles.is_end_word?(nil)).to eq(false)
+      expect(noodles.send(:is_end_word?, nil)).to eq(false)
     end
   end
 
   it "generates proper dictionary when word appears multiple times" do
-    noodles.analyze_text("I like pie. I like beer.")
+    noodles.analyze_string("I like pie. I like beer.")
     expect(noodles.dictionary).to eq({[nil, nil]=>["I"],
                                       [nil, "I"]=>["like"],
                                       ["I", "like"]=>["pie.", "beer."],
@@ -58,7 +68,7 @@ describe Noodles do
   describe "markov chains of length 1" do
     let(:noodles) { Noodles.new(1) }
     it "generates proper dictionary" do
-      noodles.analyze_text("This is a sentence.")
+      noodles.analyze_string("This is a sentence.")
       expect(noodles.dictionary).to eq([nil]=>["This"],
                                                ["This"]=>["is"],
                                                ["is"]=>["a"],
@@ -66,7 +76,7 @@ describe Noodles do
     end
 
     it "can generate a sentence" do
-      noodles.analyze_text("This is a sentence.")
+      noodles.analyze_string("This is a sentence.")
       expect(noodles.generate_sentence).to eq("This is a sentence.")
     end
   end
@@ -74,7 +84,7 @@ describe Noodles do
   describe "markov chains of length 3" do
     let(:noodles) { Noodles.new(3) }
     it "generates proper dictionary" do
-      noodles.analyze_text("This is a sentence.")
+      noodles.analyze_string("This is a sentence.")
       expect(noodles.dictionary).to eq([nil, nil, nil]=>["This"],
                                                [nil, nil, "This"]=>["is"],
                                                [nil, "This", "is"]=>["a"],
@@ -82,7 +92,7 @@ describe Noodles do
     end
 
     it "can generate a sentence" do
-      noodles.analyze_text("This is a sentence.")
+      noodles.analyze_string("This is a sentence.")
       expect(noodles.generate_sentence).to eq("This is a sentence.")
     end
   end

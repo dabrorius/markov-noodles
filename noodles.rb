@@ -1,26 +1,20 @@
 class Noodles
   attr_reader :dictionary
+
   def initialize(depth=2)
     @depth = depth
     @dictionary = {}
   end
 
-  def analyze_text(text)
+  def analyze_string(text)
     current_words = Array.new(depth)
-    text_array = text.split(" ")
-    while(text_array.length>0)
+    text_array = text.split
+    while(text_array.length > 0)
       next_word = text_array.shift
       add_words(current_words.dup, next_word)
       current_words.push next_word
       current_words.shift
     end
-  end
-
-  def add_words(preceding, followedby)
-    raise "Preceding must be an array" unless preceding.is_a?(Array)
-    raise "Followedby must be a string" unless followedby.is_a?(String)
-    @dictionary[preceding] ||= []
-    @dictionary[preceding].push followedby
   end
 
   def generate_sentence
@@ -52,11 +46,16 @@ class Noodles
     @depth
   end
 
-  def is_end_word?(word)
-    word != nil && (word =~ /^*+[?\.!]$/) != nil
+  private
+
+  def add_words(preceding, followedby)
+    raise "Preceding must be an array" unless preceding.is_a?(Array)
+    raise "Followedby must be a string" unless followedby.is_a?(String)
+    @dictionary[preceding] ||= []
+    @dictionary[preceding].push followedby
   end
 
-  def print
-    puts @dictionary
+  def is_end_word?(word)
+    word != nil && (word =~ /^*+[?\.!]$/) != nil
   end
 end
