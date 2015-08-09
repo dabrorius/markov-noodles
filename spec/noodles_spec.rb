@@ -1,4 +1,4 @@
-require_relative 'noodles'
+require 'noodles'
 
 describe Noodles do
   let(:noodles) { Noodles.new }
@@ -37,7 +37,8 @@ describe Noodles do
 
   describe "#analzye_file" do
     it "creates correct dictionary" do
-      noodles.analyze_file("test_input.txt")
+      input_file = File.expand_path("../test_input.txt", __FILE__)
+      noodles.analyze_file(input_file)
       expect(noodles.dictionary).to eq({[nil, nil]=>["White"],
                                         [nil, "White"]=>["cats"],
                                         ["White", "cats"]=>["are"],
@@ -48,15 +49,17 @@ describe Noodles do
 
   describe "saving and loading" do
     it "can save dictionary to file" do
+      dictionary_file = File.expand_path("../dictionary_file", __FILE__)
       noodles.analyze_string("Black sails at midnight")
-      noodles.save_dictionary("dictionary_file")
-      written_dictionary = MessagePack.unpack(File.read("dictionary_file"))
+      noodles.save_dictionary(dictionary_file)
+      written_dictionary = MessagePack.unpack(File.read(dictionary_file))
       expect(written_dictionary).to eq noodles.dictionary
-      File.delete("dictionary_file") if File.exist?("dictionary_file")
+      File.delete(dictionary_file) if File.exist?(dictionary_file)
     end
 
     it "can read dictionary from file" do
-      noodles.load_dictionary("test_dictionary")
+      dictionary_file = File.expand_path("../test_dictionary", __FILE__)
+      noodles.load_dictionary(dictionary_file)
       expect(noodles.dictionary).to eq({[nil, nil]=>["Black"],
                                         [nil, "Black"]=>["sails"],
                                         ["Black", "sails"]=>["at"],
