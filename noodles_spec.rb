@@ -8,6 +8,11 @@ describe Noodles do
     expect(noodles.generate_sentence).to eq("This is a sentence.")
   end
 
+  it "can generate multiple sentences" do
+    noodles.analyze_string("This is a sentence.")
+    expect(noodles.generate_n_sentences(3)).to eq("This is a sentence. This is a sentence. This is a sentence.")
+  end
+
   it "can analyze sentence with a lot of whitespace" do
     noodles.analyze_string(" This  is a  \n\n  sentence.  \n")
     expect(noodles.generate_sentence).to eq("This is a sentence.")

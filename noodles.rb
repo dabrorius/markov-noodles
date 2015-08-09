@@ -33,6 +33,17 @@ class Noodles
     @dictionary = MessagePack.unpack(File.read(filename))
   end
 
+  def generate_n_sentences(n)
+    text = ""
+    n.times do |i|
+      text.concat(generate_sentence)
+      unless i == (n-1)
+        text.concat(" ")
+      end
+    end
+    text
+  end
+
   def generate_sentence
     current_words = Array.new(depth)
     sentence_array = []
