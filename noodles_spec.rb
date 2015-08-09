@@ -15,6 +15,15 @@ describe Noodles do
                                       ["is", "a"]=>["sentence."]})
   end
 
+  it "generates proper dictionary when word appears multiple times" do
+    noodles.analyze_text("I like pie. I like beer.")
+    expect(noodles.dictionary).to eq({[nil, nil]=>["I"],
+                                      [nil, "I"]=>["like"],
+                                      ["I", "like"]=>["pie.", "beer."],
+                                      ["like", "pie."]=>["I"],
+                                      ["pie.", "I"]=>["like"]})
+  end
+
   describe "markov chains of length 1" do
     let(:noodles) { Noodles.new(1) }
     it "generates proper dictionary" do
