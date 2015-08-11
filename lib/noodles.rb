@@ -88,6 +88,7 @@ class Noodles
     @dictionary[preceding].push followedby
   end
 
+  # Checks if word ends with one of following characters .?$
   def end_word?(word)
     !word.nil? && !(word =~ /^*+[?\.!]$/).nil?
   end
