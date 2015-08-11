@@ -1,7 +1,7 @@
-require 'noodles'
+require 'markov_noodles'
 
-describe Noodles do
-  let(:noodles) { Noodles.new }
+describe MarkovNoodles do
+  let(:noodles) { MarkovNoodles.new }
 
   it 'can generate a sentence' do
     noodles.analyse_string('This is a sentence.')
@@ -115,7 +115,7 @@ describe Noodles do
   end
 
   describe 'markov chains of length 1' do
-    let(:noodles) { Noodles.new(1) }
+    let(:noodles) { MarkovNoodles.new(1) }
     it 'generates proper dictionary' do
       noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil] => ['This'],
@@ -132,7 +132,7 @@ describe Noodles do
   end
 
   describe 'markov chains of length 3' do
-    let(:noodles) { Noodles.new(3) }
+    let(:noodles) { MarkovNoodles.new(3) }
     it 'generates proper dictionary' do
       noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil, nil, nil] => ['This'],

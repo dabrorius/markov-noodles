@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name        = 'noodles'
+  s.name        = 'markov_noodles'
   s.version     = '1.0.0'
   s.date        = Date.today.to_s
   s.summary     = 'Simple markov chain implementation'
@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
                   'real-looking text given a sample document.'
   s.authors     = ['Filip Defar']
   s.email       = 'filip.defar@gmail.com'
-  s.files       = ['lib/noodles.rb']
+  s.files       = ['lib/markov_noodles.rb']
   s.homepage    = 'https://github.com/dabrorius/noodles'
   s.license     = 'MIT'
 end

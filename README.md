@@ -1,10 +1,10 @@
-# Markov chain generation with Noodles
+# Markov noodles
 
-Noodles is a minimalistic library for generating text using Markov chains.
+Markov noodles is a minimalistic library for generating text using Markov chains.
 
 ## Installation
 ```
-gem install noodles
+gem install markov_noodles
 ```
 
 ## Usage
@@ -12,7 +12,7 @@ gem install noodles
 Here's an example of analysing a string and generating a sentence.
 
 ```ruby
-noodle = Noodles.new
+noodle = MarkovNoodles.new
 noodle.analyse_string('Here is a string.')
 noodle.generate_sentence
 ```
@@ -20,7 +20,7 @@ noodle.generate_sentence
 Here's an example of analysing a text file and generating multiple sentences.
 
 ```ruby
-noodle = Noodles.new
+noodle = MarkovNoodles.new
 noodle.analyse_file('input.txt')
 noodle.generate_n_sentences(10)
 ```
@@ -28,20 +28,20 @@ noodle.generate_n_sentences(10)
 You can save and load dictionaries.
 
 ```ruby
-noodle = Noodles.new
+noodle = MarkovNoodles.new
 noodle.analyse_string('Here is a string.')
 noodle.save_dictionary('saved_dictionary.dict')
 
 # after a while...
 
-noodle_two = Noodles.new
+noodle_two = MarkovNoodles.new
 noodle_two.load_dictionary('saved_dictionary.dict')
 noodle_Two.genereate_sentence
 ```
 Default dictionary depth is two but you can change it during initialization.
 
 ```ruby
-so_deep = Noodles.new(3) # => creates a dictionary of depth 3
+so_deep = MarkovNoodles.new(3) # => creates a dictionary of depth 3
 ```
 
 ## So what exactly does this do?
@@ -58,7 +58,7 @@ original document.
 Here's a simple example of generated 'original' sentence with very minimal input.
 
 ```
-noodle = Noodles.new
+noodle = MarkovNoodles.new
 noodle.analyse_string("I like pie and eat it. I like pony and eat with it")
 noodle.generate_sentence # => "I like pie and eat with it."  
 ```

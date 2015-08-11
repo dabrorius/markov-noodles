@@ -1,6 +1,6 @@
 require 'msgpack'
 
-class Noodles
+class MarkovNoodles
   attr_reader :dictionary
   attr_reader :depth
 
