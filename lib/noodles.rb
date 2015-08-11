@@ -9,11 +9,11 @@ class Noodles
     @dictionary = {}
   end
 
-  def analyze_file(filename)
-    analyze_string(File.read(filename))
+  def analyse_file(filename)
+    analyse_string(File.read(filename))
   end
 
-  def analyze_string(text)
+  def analyse_string(text)
     current_words = Array.new(depth)
     text_array = split_text_to_array(text)
     while text_array.length > 0
@@ -68,7 +68,7 @@ class Noodles
   # Splits a text into array and inserts @depth nils after each sentence.
   #
   # This way generated texts can start with any word that is at the beginning of
-  # any sentence in analyzed text, instead of always starting with the first
+  # any sentence in analysed text, instead of always starting with the first
   # word from the text.
   def split_text_to_array(text)
     text_array = []

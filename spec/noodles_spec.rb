@@ -4,18 +4,18 @@ describe Noodles do
   let(:noodles) { Noodles.new }
 
   it 'can generate a sentence' do
-    noodles.analyze_string('This is a sentence.')
+    noodles.analyse_string('This is a sentence.')
     expect(noodles.generate_sentence).to eq('This is a sentence.')
   end
 
   it 'can generate multiple sentences' do
-    noodles.analyze_string('This is a sentence.')
+    noodles.analyse_string('This is a sentence.')
     expect(noodles.generate_n_sentences(3)).to eq('This is a sentence.'\
       ' This is a sentence. This is a sentence.')
   end
 
-  it 'can analyze sentence with a lot of whitespace' do
-    noodles.analyze_string(" This  is a  \n\n  sentence.  \n")
+  it 'can analyse sentence with a lot of whitespace' do
+    noodles.analyse_string(" This  is a  \n\n  sentence.  \n")
     expect(noodles.generate_sentence).to eq('This is a sentence.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
                                      [nil, 'This'] => ['is'],
@@ -26,12 +26,12 @@ describe Noodles do
   end
 
   it 'adds a full stop automatically' do
-    noodles.analyze_string('This is a sentence')
+    noodles.analyse_string('This is a sentence')
     expect(noodles.generate_sentence).to eq('This is a sentence.')
   end
 
   it 'generates proper dictionary' do
-    noodles.analyze_string('This is a sentence.')
+    noodles.analyse_string('This is a sentence.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
                                      [nil, 'This'] => ['is'],
                                      ['This', 'is'] => ['a'],
@@ -41,7 +41,7 @@ describe Noodles do
   end
 
   it 'generates proper dictionary with multiple sentences' do
-    noodles.analyze_string('This is a sentence. Foo is a bar.')
+    noodles.analyse_string('This is a sentence. Foo is a bar.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This', 'Foo'],
                                      [nil, 'This'] => ['is'],
                                      ['This', 'is'] => ['a'],
@@ -52,15 +52,12 @@ describe Noodles do
                                      ['Foo', 'is'] => ['a'],
                                      ['a', 'bar.'] => [nil],
                                      ['bar.', nil] => [nil])
-                                    
-                                    
-                                    
   end
 
   describe '#analzye_file' do
     it 'creates correct dictionary' do
       input_file = File.expand_path('../test_input.txt', __FILE__)
-      noodles.analyze_file(input_file)
+      noodles.analyse_file(input_file)
       expect(noodles.dictionary).to eq([nil, nil] => ['White'],
                                        [nil, 'White'] => ['cats'],
                                        ['White', 'cats'] => ['are'],
@@ -74,7 +71,7 @@ describe Noodles do
   describe 'saving and loading' do
     it 'can save dictionary to file' do
       dictionary_file = File.expand_path('../dictionary_file', __FILE__)
-      noodles.analyze_string('Black sails at midnight')
+      noodles.analyse_string('Black sails at midnight')
       noodles.save_dictionary(dictionary_file)
       written_dictionary = MessagePack.unpack(File.read(dictionary_file))
       expect(written_dictionary).to eq noodles.dictionary
@@ -120,7 +117,7 @@ describe Noodles do
   describe 'markov chains of length 1' do
     let(:noodles) { Noodles.new(1) }
     it 'generates proper dictionary' do
-      noodles.analyze_string('This is a sentence.')
+      noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil] => ['This'],
                                        ['This'] => ['is'],
                                        ['is'] => ['a'],
@@ -129,7 +126,7 @@ describe Noodles do
     end
 
     it 'can generate a sentence' do
-      noodles.analyze_string('This is a sentence.')
+      noodles.analyse_string('This is a sentence.')
       expect(noodles.generate_sentence).to eq('This is a sentence.')
     end
   end
@@ -137,7 +134,7 @@ describe Noodles do
   describe 'markov chains of length 3' do
     let(:noodles) { Noodles.new(3) }
     it 'generates proper dictionary' do
-      noodles.analyze_string('This is a sentence.')
+      noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil, nil, nil] => ['This'],
                                        [nil, nil, 'This'] => ['is'],
                                        [nil, 'This', 'is'] => ['a'],
@@ -148,7 +145,7 @@ describe Noodles do
     end
 
     it 'can generate a sentence' do
-      noodles.analyze_string('This is a sentence.')
+      noodles.analyse_string('This is a sentence.')
       expect(noodles.generate_sentence).to eq('This is a sentence.')
     end
   end
