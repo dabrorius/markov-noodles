@@ -54,7 +54,7 @@ describe Noodles do
                                      ['bar.', nil] => [nil])
   end
 
-  describe '#analzye_file' do
+  describe '#analyse_file' do
     it 'creates correct dictionary' do
       input_file = File.expand_path('../test_input.txt', __FILE__)
       noodles.analyse_file(input_file)
