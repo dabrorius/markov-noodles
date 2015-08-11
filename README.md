@@ -36,7 +36,7 @@ noodle.save_dictionary('saved_dictionary.dict')
 
 noodle_two = MarkovNoodles.new
 noodle_two.load_dictionary('saved_dictionary.dict')
-noodle_Two.genereate_sentence
+noodle_two.generate_sentence
 ```
 Default dictionary depth is two but you can change it during initialization.
 
@@ -57,7 +57,7 @@ original document.
 
 Here's a simple example of generated 'original' sentence with very minimal input.
 
-```
+```ruby
 noodle = MarkovNoodles.new
 noodle.analyse_string("I like pie and eat it. I like pony and eat with it")
 noodle.generate_sentence # => "I like pie and eat with it."  
