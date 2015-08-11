@@ -35,13 +35,7 @@ class MarkovNoodles
   end
 
   def generate_n_sentences(n)
-    text = ''
-    n.times do |i|
-      text.concat(generate_sentence)
-      is_last_sentence = i == (n - 1)
-      text.concat(' ') unless is_last_sentence
-    end
-    text
+    n.times.map { |_| generate_sentence }.join(' ')
   end
 
   def generate_sentence
