@@ -35,7 +35,7 @@ class MarkovNoodles
   end
 
   def generate_n_sentences(n)
-    n.times.map { |_| generate_sentence }.join(' ')
+    n.times.map { generate_sentence }.join(' ')
   end
 
   def generate_sentence
