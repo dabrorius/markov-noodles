@@ -6,7 +6,7 @@ class MarkovNoodles
 
   def initialize(depth = 2)
     @depth = depth
-    @dictionary = {}
+    @dictionary = Hash.new { |hash, missing_word| hash[missing_word] = [] }
   end
 
   def analyse_file(filename)
@@ -35,13 +35,7 @@ class MarkovNoodles
   end
 
   def generate_n_sentences(n)
-    text = ''
-    n.times do |i|
-      text.concat(generate_sentence)
-      is_last_sentence = i == (n - 1)
-      text.concat(' ') unless is_last_sentence
-    end
-    text
+    n.times.map { generate_sentence }.join(' ')
   end
 
   def generate_sentence
@@ -52,7 +46,7 @@ class MarkovNoodles
       sentence_array.push new_word if new_word
       break if end_word?(new_word)
       next_word_options = @dictionary[current_words]
-      if next_word_options.nil? && !end_word?(new_word)
+      if next_word_options.empty? && !end_word?(new_word)
         new_word.concat('.')
         break
       end
@@ -84,7 +78,6 @@ class MarkovNoodles
   end
 
   def add_words(preceding, followedby)
-    @dictionary[preceding] ||= []
     @dictionary[preceding].push followedby
   end
 
