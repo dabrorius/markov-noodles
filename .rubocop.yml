@@ -4,6 +4,9 @@ AllCops:
 Layout/EndOfLine:
   EnforcedStyle: lf
 
+Metrics/LineLength:
+  Max: 120
+
 Metrics/AbcSize:
   Enabled: false
 
