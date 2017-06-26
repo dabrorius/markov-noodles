@@ -1,2 +1,5 @@
-Style/WordArray:
-  Enabled: false
+AllCops:
+  TargetRubyVersion: 2.3
+
+Layout/EndOfLine:
+  EnforcedStyle: lf

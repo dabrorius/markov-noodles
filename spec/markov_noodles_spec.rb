@@ -1,6 +1,8 @@
-require 'markov_noodles'
+# frozen_string_literal: true
 
-describe MarkovNoodles do
+require 'spec_helper'
+
+RSpec.describe MarkovNoodles do
   let(:noodles) { MarkovNoodles.new }
 
   it 'can generate a sentence' do
@@ -18,11 +20,11 @@ describe MarkovNoodles do
     noodles.analyse_string(" This  is a  \n\n  sentence.  \n")
     expect(noodles.generate_sentence).to eq('This is a sentence.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
-                                     [nil, 'This'] => ['is'],
-                                     ['This', 'is'] => ['a'],
-                                     ['is', 'a'] => ['sentence.'],
-                                     ['a', 'sentence.'] => [nil],
-                                     ['sentence.', nil] => [nil])
+      [nil, 'This'] => ['is'],
+      ['This', 'is'] => ['a'],
+      ['is', 'a'] => ['sentence.'],
+      ['a', 'sentence.'] => [nil],
+      ['sentence.', nil] => [nil])
   end
 
   it 'adds a full stop automatically' do
@@ -33,25 +35,25 @@ describe MarkovNoodles do
   it 'generates proper dictionary' do
     noodles.analyse_string('This is a sentence.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This'],
-                                     [nil, 'This'] => ['is'],
-                                     ['This', 'is'] => ['a'],
-                                     ['is', 'a'] => ['sentence.'],
-                                     ['a', 'sentence.'] => [nil],
-                                     ['sentence.', nil] => [nil])
+      [nil, 'This'] => ['is'],
+      ['This', 'is'] => ['a'],
+      ['is', 'a'] => ['sentence.'],
+      ['a', 'sentence.'] => [nil],
+      ['sentence.', nil] => [nil])
   end
 
   it 'generates proper dictionary with multiple sentences' do
     noodles.analyse_string('This is a sentence. Foo is a bar.')
     expect(noodles.dictionary).to eq([nil, nil] => ['This', 'Foo'],
-                                     [nil, 'This'] => ['is'],
-                                     ['This', 'is'] => ['a'],
-                                     ['is', 'a'] => ['sentence.', 'bar.'],
-                                     ['a', 'sentence.'] => [nil],
-                                     ['sentence.', nil] => [nil],
-                                     [nil, 'Foo'] => ['is'],
-                                     ['Foo', 'is'] => ['a'],
-                                     ['a', 'bar.'] => [nil],
-                                     ['bar.', nil] => [nil])
+      [nil, 'This'] => ['is'],
+      ['This', 'is'] => ['a'],
+      ['is', 'a'] => ['sentence.', 'bar.'],
+      ['a', 'sentence.'] => [nil],
+      ['sentence.', nil] => [nil],
+      [nil, 'Foo'] => ['is'],
+      ['Foo', 'is'] => ['a'],
+      ['a', 'bar.'] => [nil],
+      ['bar.', nil] => [nil])
   end
 
   describe '#analyse_file' do
@@ -59,12 +61,12 @@ describe MarkovNoodles do
       input_file = File.expand_path('../test_input.txt', __FILE__)
       noodles.analyse_file(input_file)
       expect(noodles.dictionary).to eq([nil, nil] => ['White'],
-                                       [nil, 'White'] => ['cats'],
-                                       ['White', 'cats'] => ['are'],
-                                       ['cats', 'are'] => ['the'],
-                                       ['are', 'the'] => ['best.'],
-                                       ['the', 'best.'] => [nil],
-                                       ['best.', nil] => [nil])
+        [nil, 'White'] => ['cats'],
+        ['White', 'cats'] => ['are'],
+        ['cats', 'are'] => ['the'],
+        ['are', 'the'] => ['best.'],
+        ['the', 'best.'] => [nil],
+        ['best.', nil] => [nil])
     end
   end
 
@@ -82,9 +84,9 @@ describe MarkovNoodles do
       dictionary_file = File.expand_path('../test_dictionary', __FILE__)
       noodles.load_dictionary(dictionary_file)
       expect(noodles.dictionary).to eq([nil, nil] => ['Black'],
-                                       [nil, 'Black'] => ['sails'],
-                                       ['Black', 'sails'] => ['at'],
-                                       ['sails', 'at'] => ['midnight'])
+        [nil, 'Black'] => ['sails'],
+        ['Black', 'sails'] => ['at'],
+        ['sails', 'at'] => ['midnight'])
     end
   end
 
@@ -119,10 +121,10 @@ describe MarkovNoodles do
     it 'generates proper dictionary' do
       noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil] => ['This'],
-                                       ['This'] => ['is'],
-                                       ['is'] => ['a'],
-                                       ['a'] => ['sentence.'],
-                                       ['sentence.'] => [nil])
+        ['This'] => ['is'],
+        ['is'] => ['a'],
+        ['a'] => ['sentence.'],
+        ['sentence.'] => [nil])
     end
 
     it 'can generate a sentence' do
@@ -136,12 +138,12 @@ describe MarkovNoodles do
     it 'generates proper dictionary' do
       noodles.analyse_string('This is a sentence.')
       expect(noodles.dictionary).to eq([nil, nil, nil] => ['This'],
-                                       [nil, nil, 'This'] => ['is'],
-                                       [nil, 'This', 'is'] => ['a'],
-                                       ['This', 'is', 'a'] => ['sentence.'],
-                                       ['a', 'sentence.', nil] => [nil],
-                                       ['is', 'a', 'sentence.'] => [nil],
-                                       ['sentence.', nil, nil] => [nil])
+        [nil, nil, 'This'] => ['is'],
+        [nil, 'This', 'is'] => ['a'],
+        ['This', 'is', 'a'] => ['sentence.'],
+        ['a', 'sentence.', nil] => [nil],
+        ['is', 'a', 'sentence.'] => [nil],
+        ['sentence.', nil, nil] => [nil])
     end
 
     it 'can generate a sentence' do

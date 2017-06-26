@@ -1,9 +1,25 @@
+/.bundle/
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+*.bundle
+*.gem
+
+# rspec failure tracking
+.rspec_status
+
+# rubymine
+/.idea/
+
+# other
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
 *.un~
 Session.vim
 .netrwhist
 *~
-*.gem
-Gemfile.lock
-/.idea/
