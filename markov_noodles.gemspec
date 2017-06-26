@@ -11,5 +11,5 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/dabrorius/noodles'
   s.license     = 'MIT'
 
-  s.add_runtime_dependency 'msgpack', '~> 0.6'
+  s.add_runtime_dependency 'msgpack', '~> 1.1.0'
 end
