@@ -2,6 +2,7 @@
 
 require 'msgpack'
 
+# This is the main MarkovNoodles class.
 class MarkovNoodles
   attr_reader :dictionary
   attr_reader :depth
@@ -18,7 +19,7 @@ class MarkovNoodles
   def analyse_string(text)
     current_words = Array.new(depth)
     text_array = split_text_to_array(text)
-    while text_array.length > 0
+    until text_array.empty?
       next_word = text_array.shift
       add_words(current_words.dup, next_word)
       current_words.push next_word
@@ -37,7 +38,7 @@ class MarkovNoodles
   end
 
   def generate_n_sentences(n)
-    n.times.map { generate_sentence }.join(' ')
+    Array.new(n) { generate_sentence }.join(' ')
   end
 
   def generate_sentence
@@ -70,10 +71,10 @@ class MarkovNoodles
     text_array = []
     text.split.each do |word|
       text_array.push word
-      if end_word?(word)
-        depth.times do
-          text_array.push nil
-        end
+
+      next unless end_word?(word)
+      depth.times do
+        text_array.push nil
       end
     end
     text_array

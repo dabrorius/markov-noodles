@@ -3,3 +3,17 @@ AllCops:
 
 Layout/EndOfLine:
   EnforcedStyle: lf
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: False
+
+Metrics/MethodLength:
+  Enabled: False
+
+Style/WordArray:
+  Exclude:
+    - 'spec/markov_noodles_spec.rb'
+
