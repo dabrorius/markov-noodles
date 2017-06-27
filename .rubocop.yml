@@ -1,2 +1,22 @@
-Style/WordArray:
+AllCops:
+  TargetRubyVersion: 2.3
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/AbcSize:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: False
+
+Metrics/MethodLength:
+  Enabled: False
+
+Style/WordArray:
+  Exclude:
+    - 'spec/markov_noodles_spec.rb'
+
